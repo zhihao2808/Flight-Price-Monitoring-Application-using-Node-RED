@@ -1,0 +1,4769 @@
+[
+    {
+        "id": "79e6c44f8e0344c2",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3ef1c14f097015eb",
+        "type": "ui_date_picker",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "label": "Depart Date",
+        "group": "1e31d2774c0ec0f5",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 150,
+        "y": 440,
+        "wires": [
+            [
+                "969314a0393ffcea"
+            ]
+        ]
+    },
+    {
+        "id": "d908865588e6f280",
+        "type": "ui_date_picker",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "label": "Return Date",
+        "group": "1e31d2774c0ec0f5",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 150,
+        "y": 500,
+        "wires": [
+            [
+                "3070d2810a957954"
+            ]
+        ]
+    },
+    {
+        "id": "9091821d752a8c51",
+        "type": "ui_dropdown",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "label": "Flight Type",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "1e31d2774c0ec0f5",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "multiple": false,
+        "options": [
+            {
+                "label": "One-way",
+                "value": "1",
+                "type": "str"
+            },
+            {
+                "label": "Round-trip",
+                "value": "2",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 150,
+        "y": 560,
+        "wires": [
+            [
+                "6b04c91e2abf18db"
+            ]
+        ]
+    },
+    {
+        "id": "1e4029aff17d88ee",
+        "type": "ui_numeric",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "label": "Adult",
+        "tooltip": "",
+        "group": "1e31d2774c0ec0f5",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "className": "",
+        "x": 130,
+        "y": 620,
+        "wires": [
+            [
+                "8a51f746f6bed314"
+            ]
+        ]
+    },
+    {
+        "id": "317b1c0cf1718aca",
+        "type": "ui_numeric",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "label": "Child",
+        "tooltip": "",
+        "group": "1e31d2774c0ec0f5",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "className": "",
+        "x": 130,
+        "y": 680,
+        "wires": [
+            [
+                "ea4607bb0458e1e7"
+            ]
+        ]
+    },
+    {
+        "id": "969314a0393ffcea",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "setDepartDate",
+        "func": "var date = new Date(msg.payload);\nvar strDate = date.toString();\n\nvar dd = strDate.split(\" \")[2];\nvar monthStr = strDate.split(\" \")[1];\nvar mm = new Date(Date.parse(monthStr + \" 1, 2000\")).getMonth() + 1;\nvar yy = strDate.split(\" \")[3];\n\nif (mm < 10) {\n    mm = \"0\" + mm;\n}\n\nvar departDate = dd + \"%2F\" + mm + \"%2F\" + yy;\n\nmsg.payload = departDate;\nmsg.topic = \"departDate\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 440,
+        "wires": [
+            [
+                "82e8d643ef8469eb"
+            ]
+        ]
+    },
+    {
+        "id": "0cf3306145f4f3b7",
+        "type": "ui_text_input",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "label": "Origin",
+        "tooltip": "",
+        "group": "1e31d2774c0ec0f5",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "origin",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 130,
+        "y": 320,
+        "wires": [
+            [
+                "93dee31a47cbe49a"
+            ]
+        ]
+    },
+    {
+        "id": "397789ee45b71fbc",
+        "type": "ui_text_input",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "label": "Destination",
+        "tooltip": "",
+        "group": "1e31d2774c0ec0f5",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "destination",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 150,
+        "y": 380,
+        "wires": [
+            [
+                "de5039881d75ba42"
+            ]
+        ]
+    },
+    {
+        "id": "93dee31a47cbe49a",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "origin",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 320,
+        "wires": [
+            [
+                "82e8d643ef8469eb"
+            ]
+        ]
+    },
+    {
+        "id": "de5039881d75ba42",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "destination",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 380,
+        "wires": [
+            [
+                "82e8d643ef8469eb"
+            ]
+        ]
+    },
+    {
+        "id": "5f3664a36fdabced",
+        "type": "ui_button",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "group": "1e31d2774c0ec0f5",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "label": "submit",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "submit",
+        "topicType": "msg",
+        "x": 130,
+        "y": 780,
+        "wires": [
+            [
+                "be6e02f1399edc67"
+            ]
+        ]
+    },
+    {
+        "id": "82e8d643ef8469eb",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "CombineToObject",
+        "func": "var submit = false;\nif (msg.topic === \"submit\") {\n    submit = msg.payload;\n}\n\nvar origin = flow.get(\"origin\");\nvar destination = flow.get(\"destination\");\nvar departDate = flow.get(\"departDate\");\nvar returnDate = flow.get(\"returnDate\");\nvar flightType = flow.get(\"flightType\");\nvar adult = flow.get(\"adult\");\nvar child = flow.get(\"child\");\n\nif (msg.topic === \"origin\") {\n    origin = msg.payload;\n} else if (msg.topic === \"destination\") {\n    destination = msg.payload;\n} else if (msg.topic === \"departDate\") {\n    departDate = msg.payload;\n} else if (msg.topic === \"returnDate\") {\n    returnDate = msg.payload;\n} else if (msg.topic === \"flightType\") {\n    flightType = msg.payload;\n} else if (msg.topic === \"adult\") {\n    adult = msg.payload;\n} else if (msg.topic === \"child\") {\n    child = msg.payload;\n}\n\nflow.set(\"origin\", origin);\nflow.set(\"destination\", destination);\nflow.set(\"departDate\", departDate);\nflow.set(\"returnDate\", returnDate);\nflow.set(\"flightType\", flightType);\nflow.set(\"adult\", adult);\nflow.set(\"child\", child);\n\nif (submit == true) {\n    var output = {\n        \"origin\": origin,\n        \"destination\": destination,\n        \"departDate\": departDate,\n        \"returnDate\": returnDate,\n        \"flightType\": flightType,\n        \"adult\": adult,\n        \"child\": child\n    };\n    msg.payload = output;\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 380,
+        "wires": [
+            [
+                "c7bcfdb3d659a448",
+                "a8c5235bdcdafca9"
+            ]
+        ]
+    },
+    {
+        "id": "be6e02f1399edc67",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "submit",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 780,
+        "wires": [
+            [
+                "82e8d643ef8469eb"
+            ]
+        ]
+    },
+    {
+        "id": "3070d2810a957954",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "setDepartDate",
+        "func": "var date = new Date(msg.payload);\nvar strDate = date.toString();\n\nvar dd = strDate.split(\" \")[2];\nvar monthStr = strDate.split(\" \")[1];\nvar mm = new Date(Date.parse(monthStr + \" 1, 2000\")).getMonth() + 1;\nvar yy = strDate.split(\" \")[3];\n\nif (mm < 10) {\n    mm = \"0\" + mm;\n}\n\nvar returnDate = dd + \"%2F\" + mm + \"%2F\" + yy;\n\nmsg.payload = returnDate;\nmsg.topic = \"returnDate\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 500,
+        "wires": [
+            [
+                "82e8d643ef8469eb"
+            ]
+        ]
+    },
+    {
+        "id": "8a51f746f6bed314",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "adult",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 620,
+        "wires": [
+            [
+                "82e8d643ef8469eb"
+            ]
+        ]
+    },
+    {
+        "id": "ea4607bb0458e1e7",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "child",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 680,
+        "wires": [
+            [
+                "82e8d643ef8469eb"
+            ]
+        ]
+    },
+    {
+        "id": "9ea28b6bb72b957d",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "CheckRoundTrip",
+        "func": "if(msg.payload.flightType == \"R\"){\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1090,
+        "y": 1000,
+        "wires": [
+            [
+                "5687157d9c3ff75f",
+                "652b71629cae27f3"
+            ]
+        ]
+    },
+    {
+        "id": "e31b8f2ff7da259d",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "CheckOneWay",
+        "func": "if(msg.payload.flightType == \"O\"){\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 380,
+        "wires": [
+            [
+                "652b71629cae27f3"
+            ]
+        ]
+    },
+    {
+        "id": "6b04c91e2abf18db",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "setFlightType",
+        "func": "if(msg.payload == \"1\"){\n    var flightType = \"O\"\n} else if (msg.payload == \"2\") {\n    var flightType = \"R\"\n}\n\nmsg.payload = flightType;\nmsg.topic = \"flightType\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 560,
+        "wires": [
+            [
+                "82e8d643ef8469eb"
+            ]
+        ]
+    },
+    {
+        "id": "652b71629cae27f3",
+        "type": "open browser",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "browserType": "chrome",
+        "webURL": "https://www.airasia.com/flights/search/?origin={{msg.payload.origin}}&destination={{msg.payload.destination}}&departDate={{msg.payload.departDate}}&tripType=O&adult={{msg.payload.adult}}&child={{msg.payload.child}}&infant=0&locale=en-gb&currency=MYR&airlineProfile=all&type=paired&cabinClass=economy&upsellWidget=true&upsellPremiumFlatbedWidget=true&isOC=false&isDC=false&uce=false&ancillaryAbTest=false",
+        "width": 1280,
+        "height": 1024,
+        "timeout": 3000,
+        "maximized": true,
+        "headless": false,
+        "args": [],
+        "serverURL": "http://localhost:9515",
+        "x": 1330,
+        "y": 380,
+        "wires": [
+            [
+                "2fef4cffe8a32212"
+            ]
+        ]
+    },
+    {
+        "id": "20fcb490f01dba5b",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find price",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[2]/div[{{msg.payload}}]/div/div/div/div/div/div/div[2]/div[2]/div/div[1]/div[1]/span/p[2]",
+        "multiple": false,
+        "timeout": "10000",
+        "waitFor": "1000",
+        "x": 1840,
+        "y": 340,
+        "wires": [
+            [
+                "46893710206bfd01"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "46893710206bfd01",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2080,
+        "y": 340,
+        "wires": [
+            [
+                "12ec899e6e888e8a"
+            ],
+            [
+                "55b32ebc936a97f6"
+            ]
+        ]
+    },
+    {
+        "id": "5e17afca50b9cf05",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find seatType",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[2]/div[{{msg.payload}}]/div/div/div/div/div/div/div[2]/div[1]/div[1]/div[1]/p",
+        "multiple": false,
+        "timeout": "10000",
+        "waitFor": "1000",
+        "x": 1850,
+        "y": 760,
+        "wires": [
+            [
+                "450115952ff48519"
+            ],
+            [
+                "666d7d0360ab30d0"
+            ]
+        ]
+    },
+    {
+        "id": "12ec899e6e888e8a",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "price",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2250,
+        "y": 340,
+        "wires": [
+            [
+                "2203b62df246e1c7"
+            ]
+        ]
+    },
+    {
+        "id": "2a540c5ac9465f05",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "seatType",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2250,
+        "y": 760,
+        "wires": [
+            [
+                "2203b62df246e1c7"
+            ]
+        ]
+    },
+    {
+        "id": "47d76947f014fee8",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find company",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[2]/div[{{msg.payload}}]/div/div/div/div/div/div/div[2]/div[1]/div[2]/div[1]/div/div[1]/div/p",
+        "multiple": false,
+        "timeout": "10000",
+        "waitFor": "1000",
+        "x": 1850,
+        "y": 400,
+        "wires": [
+            [
+                "6599357271d8f825"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "19c7e12c7ed066e0",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find departTime",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[2]/div[{{msg.payload}}]/div/div/div/div/div/div/div[2]/div[1]/div[2]/div[1]/div/div[2]/div[2]/div[1]/div/p[1]",
+        "multiple": false,
+        "timeout": "10000",
+        "waitFor": "1000",
+        "x": 1860,
+        "y": 460,
+        "wires": [
+            [
+                "b69add371dfd9489"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "d2a790f02b087678",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "company",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2250,
+        "y": 400,
+        "wires": [
+            [
+                "2203b62df246e1c7"
+            ]
+        ]
+    },
+    {
+        "id": "57903951a3279e8e",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "departTime",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2250,
+        "y": 460,
+        "wires": [
+            [
+                "2203b62df246e1c7"
+            ]
+        ]
+    },
+    {
+        "id": "16345dcccc12356b",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find arriveTime",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[2]/div[{{msg.payload}}]/div/div/div/div/div/div/div[2]/div[1]/div[2]/div[1]/div/div[2]/div[2]/div[3]/div/p[1]",
+        "multiple": false,
+        "timeout": "10000",
+        "waitFor": "1000",
+        "x": 1860,
+        "y": 520,
+        "wires": [
+            [
+                "c010309915e4bf01"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "2a81a1e2d4f08f70",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "arriveTime",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2250,
+        "y": 520,
+        "wires": [
+            [
+                "2203b62df246e1c7"
+            ]
+        ]
+    },
+    {
+        "id": "2203b62df246e1c7",
+        "type": "join",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "8",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 2450,
+        "y": 520,
+        "wires": [
+            [
+                "66a96a71aa51fd1e",
+                "e15e6e5824a480c9"
+            ]
+        ]
+    },
+    {
+        "id": "045cb45a4afb5cf9",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find origin",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[2]/div[{{msg.payload}}]/div/div/div/div/div/div/div[2]/div[1]/div[2]/div[1]/div/div[2]/div[2]/div[1]/div/p[2]",
+        "multiple": false,
+        "timeout": "10000",
+        "waitFor": "1000",
+        "x": 1840,
+        "y": 580,
+        "wires": [
+            [
+                "3006b1c2dd653cef"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "fbf59b01355a7ba8",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "origin",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2250,
+        "y": 580,
+        "wires": [
+            [
+                "2203b62df246e1c7"
+            ]
+        ]
+    },
+    {
+        "id": "2ef713da349ff318",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find destination",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[2]/div[{{msg.payload}}]/div/div/div/div/div/div/div[2]/div[1]/div[2]/div[1]/div/div[2]/div[2]/div[3]/div/p[2]",
+        "multiple": false,
+        "timeout": "10000",
+        "waitFor": "1000",
+        "x": 1860,
+        "y": 640,
+        "wires": [
+            [
+                "9e18ec93e7b57914"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "c89981c647df8fa1",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "destination",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2250,
+        "y": 640,
+        "wires": [
+            [
+                "2203b62df246e1c7"
+            ]
+        ]
+    },
+    {
+        "id": "66a96a71aa51fd1e",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "Loop",
+        "func": "var x = flow.get('x');\n\nif (x < 20) {\n    x++;\n    flow.set('x', x);\n\n    msg.payload = x;\n    return msg;\n\n} else {\n    msg.payload = null;\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1470,
+        "y": 620,
+        "wires": [
+            [
+                "20fcb490f01dba5b",
+                "47d76947f014fee8",
+                "19c7e12c7ed066e0",
+                "16345dcccc12356b",
+                "045cb45a4afb5cf9",
+                "2ef713da349ff318",
+                "5e17afca50b9cf05",
+                "1efd3500ab849cf1",
+                "eb4c53e86a841ab4"
+            ]
+        ]
+    },
+    {
+        "id": "b6028a9cd94dcd94",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "set x & array",
+        "func": "flow.set('AirasiaArray', []);\n\nflow.set('x', 1);\n\nvar x = flow.get('x')\n\nmsg.payload = x;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1470,
+        "y": 560,
+        "wires": [
+            [
+                "66a96a71aa51fd1e"
+            ]
+        ]
+    },
+    {
+        "id": "666d7d0360ab30d0",
+        "type": "close browser",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "waitFor": 500,
+        "x": 1830,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2fef4cffe8a32212",
+        "type": "click on",
+        "z": "79e6c44f8e0344c2",
+        "name": "Click on airasia only",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[1]/div[2]/div/div/div/span",
+        "mode": "first",
+        "timeout": "10000",
+        "waitFor": "5000",
+        "clickOn": false,
+        "x": 1420,
+        "y": 440,
+        "wires": [
+            [
+                "a10c6f24035bc289"
+            ],
+            [
+                "53068657b3d52d50"
+            ]
+        ]
+    },
+    {
+        "id": "a10c6f24035bc289",
+        "type": "click on",
+        "z": "79e6c44f8e0344c2",
+        "name": "Click on the 6th element",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[2]/div[6]",
+        "mode": "first",
+        "timeout": "50000",
+        "waitFor": "5000",
+        "clickOn": false,
+        "x": 1470,
+        "y": 500,
+        "wires": [
+            [
+                "b6028a9cd94dcd94"
+            ],
+            [
+                "53068657b3d52d50"
+            ]
+        ]
+    },
+    {
+        "id": "c7bcfdb3d659a448",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "AirasiaFormat",
+        "func": "var input = msg.payload;\n\nvar origin = msg.payload.origin.toUpperCase();\nvar destination = msg.payload.destination.toUpperCase();\n\nvar output = {\n    \"origin\": origin,\n    \"destination\": destination,\n    \"departDate\": msg.payload.departDate,\n    \"returnDate\": msg.payload.returnDate,\n    \"flightType\": msg.payload.flightType,\n    \"adult\": msg.payload.adult,\n    \"child\": msg.payload.child\n};\n\nmsg.payload = output;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 380,
+        "wires": [
+            [
+                "e31b8f2ff7da259d",
+                "9ea28b6bb72b957d"
+            ]
+        ]
+    },
+    {
+        "id": "a8c5235bdcdafca9",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "KayakFormat",
+        "func": "var input = msg.payload;\n\nfunction formatDate(inputDate) {\n    const parts = inputDate.split('%2F'); // Split the date string by '%2F' (URL-encoded '/')\n    return parts[2] + \"-\" + parts[1] + \"-\" + parts[0]; // Re-arrange the date parts\n}\n\nvar origin = msg.payload.origin.toUpperCase();\nvar destination = msg.payload.destination.toUpperCase();\nvar departDate = formatDate(msg.payload.departDate);\nvar returnDate = formatDate(msg.payload.returnDate || '');\nvar child;\n\nif (msg.payload.child > 0) {\n    child = \"/children\"\n    for (var i = 0; i < msg.payload.child; i++) {\n        child += \"-11\";\n    }\n} else {\n    child = null;\n}\n\nvar output = {\n    \"origin\": origin,\n    \"destination\": destination,\n    \"departDate\": departDate,\n    \"returnDate\": returnDate,\n    \"flightType\": msg.payload.flightType,\n    \"adult\": msg.payload.adult,\n    \"child\": child\n};\n\nmsg.payload = output;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 1660,
+        "wires": [
+            [
+                "cc243a858583aa13",
+                "a3e20f59f604774b"
+            ]
+        ]
+    },
+    {
+        "id": "cc243a858583aa13",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "CheckOneWay",
+        "func": "if(msg.payload.flightType == \"O\"){\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1160,
+        "y": 1660,
+        "wires": [
+            [
+                "265485ef357e3f5c"
+            ]
+        ]
+    },
+    {
+        "id": "a3e20f59f604774b",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "CheckRoundTrip",
+        "func": "if(msg.payload.flightType == \"R\"){\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1170,
+        "y": 2280,
+        "wires": [
+            [
+                "2db79907f73b183e"
+            ]
+        ]
+    },
+    {
+        "id": "265485ef357e3f5c",
+        "type": "open browser",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "browserType": "chrome",
+        "webURL": "https://www.kayak.com.my/flights/{{msg.payload.origin}}-{{msg.payload.destination}}/{{msg.payload.departDate}}/{{msg.payload.adult}}adults{{msg.payload.child}}?sort=bestflight_a",
+        "width": 1280,
+        "height": 1024,
+        "timeout": 3000,
+        "maximized": true,
+        "headless": false,
+        "args": [],
+        "serverURL": "http://localhost:9515",
+        "x": 1430,
+        "y": 1660,
+        "wires": [
+            [
+                "e1b43385ef080427"
+            ]
+        ]
+    },
+    {
+        "id": "f86201a695d1fbe5",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find seatType",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1830,
+        "y": 2120,
+        "wires": [
+            [
+                "ae7d211a7dcfeb9f"
+            ],
+            [
+                "7ec60a664cb0acee"
+            ]
+        ]
+    },
+    {
+        "id": "147750b476ad5dd0",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "seatType",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 2120,
+        "wires": [
+            [
+                "f04f75842be39bee"
+            ]
+        ]
+    },
+    {
+        "id": "af8f14994b220819",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find company",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[1]/div[3]/div/div[1]",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1830,
+        "y": 1760,
+        "wires": [
+            [
+                "5f09612238a5b472"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "df43d88d91c2153c",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find departTime",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[1]/div[2]/div/ol/li/div/div/div[2]/div[1]/span[1]",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1840,
+        "y": 1820,
+        "wires": [
+            [
+                "ce1c8614f128bc91"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "3390c336feb82e87",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "company",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 1760,
+        "wires": [
+            [
+                "f04f75842be39bee"
+            ]
+        ]
+    },
+    {
+        "id": "962ab0539732dbe8",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "departTime",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 1820,
+        "wires": [
+            [
+                "f04f75842be39bee"
+            ]
+        ]
+    },
+    {
+        "id": "44f89b896a82eecd",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find arriveTime",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[1]/div[2]/div/ol/li/div/div/div[2]/div[1]/span[3]",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1840,
+        "y": 1880,
+        "wires": [
+            [
+                "f3d2f481be619fb6"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "2a836d738cf04818",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "arriveTime",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 1880,
+        "wires": [
+            [
+                "f04f75842be39bee"
+            ]
+        ]
+    },
+    {
+        "id": "f04f75842be39bee",
+        "type": "join",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "8",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 2530,
+        "y": 1880,
+        "wires": [
+            [
+                "fc8cd8ae69da8521",
+                "fcd2b290f469c2f2"
+            ]
+        ]
+    },
+    {
+        "id": "f13b996d012b70a8",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find origin",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[1]/div[2]/div/ol/li/div/div/div[2]/div[2]/div/div[1]/span/span[1]",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1820,
+        "y": 1940,
+        "wires": [
+            [
+                "96165c1498dedc5c"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "6c0d8ab8f8f32bd6",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "origin",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 1940,
+        "wires": [
+            [
+                "f04f75842be39bee"
+            ]
+        ]
+    },
+    {
+        "id": "2ba1c753d6672351",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find destination",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[1]/div[2]/div/ol/li/div/div/div[2]/div[2]/div/div[2]/span/span[1]",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1840,
+        "y": 2000,
+        "wires": [
+            [
+                "fea8a1ab8bd47e90"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "3c7feb61d9dc5eda",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "destination",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 2000,
+        "wires": [
+            [
+                "f04f75842be39bee"
+            ]
+        ]
+    },
+    {
+        "id": "af2ca3e295172606",
+        "type": "close browser",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "waitFor": 500,
+        "x": 1810,
+        "y": 2220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "feb21d00b016f240",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find price",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[2]/div/div[2]/div/div[1]/a/div/div/div/div",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1820,
+        "y": 1700,
+        "wires": [
+            [
+                "6d0817a2e29ab108"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "68e544f449a9aeb3",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "price",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 1700,
+        "wires": [
+            [
+                "f04f75842be39bee"
+            ]
+        ]
+    },
+    {
+        "id": "fc8cd8ae69da8521",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "Loop",
+        "func": "var y = flow.get('y');\n\nif (y < 20) {\n    if (y == 3) {\n        y = y + 2;\n    } else {\n        y++;\n    }\n    flow.set('y', y);\n    msg.payload = y;\n\n    return msg;\n} else {\n    msg.payload = null;\n    return msg;\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 1840,
+        "wires": [
+            [
+                "feb21d00b016f240",
+                "af8f14994b220819",
+                "df43d88d91c2153c",
+                "44f89b896a82eecd",
+                "f13b996d012b70a8",
+                "2ba1c753d6672351",
+                "f86201a695d1fbe5",
+                "766a30364cd7b53d",
+                "5517619bc2879ae8"
+            ]
+        ]
+    },
+    {
+        "id": "e1b43385ef080427",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "set y & array",
+        "func": "flow.set('KayakArray', []);\n\nvar y = flow.get('y')\n\nflow.set('y', 0);\n\nmsg.payload = y;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 1740,
+        "wires": [
+            [
+                "fc8cd8ae69da8521"
+            ]
+        ]
+    },
+    {
+        "id": "7ec60a664cb0acee",
+        "type": "switch",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 1670,
+        "y": 2200,
+        "wires": [
+            [
+                "fc8cd8ae69da8521"
+            ],
+            [
+                "fc8cd8ae69da8521"
+            ],
+            [
+                "af2ca3e295172606"
+            ]
+        ]
+    },
+    {
+        "id": "766a30364cd7b53d",
+        "type": "switch",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1350,
+        "y": 2000,
+        "wires": [
+            [
+                "e5206ec5270b7532"
+            ]
+        ]
+    },
+    {
+        "id": "e5206ec5270b7532",
+        "type": "close browser",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "waitFor": 500,
+        "x": 1490,
+        "y": 2000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1efd3500ab849cf1",
+        "type": "switch",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1470,
+        "y": 680,
+        "wires": [
+            [
+                "53068657b3d52d50"
+            ]
+        ]
+    },
+    {
+        "id": "53068657b3d52d50",
+        "type": "close browser",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "waitFor": 500,
+        "x": 1470,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2448cde2c0c738ed",
+        "type": "ui_table",
+        "z": "79e6c44f8e0344c2",
+        "group": "7a385476dde38bb3",
+        "name": "Result",
+        "order": 3,
+        "width": 12,
+        "height": 6,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 3110,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "e15e6e5824a480c9",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "transformArray",
+        "func": "if (!flow.get('AirasiaArray')) {\n    flow.set('AirasiaArray', []);\n}\n\nflow.get('AirasiaArray').push(msg.payload);\n\nmsg.payload = flow.get('AirasiaArray');\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2640,
+        "y": 520,
+        "wires": [
+            [
+                "196e4ea34f7f806e",
+                "946267a89b53a4bd"
+            ]
+        ]
+    },
+    {
+        "id": "eb4c53e86a841ab4",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find duration",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[2]/div[{{msg.payload}}]/div/div/div/div/div/div/div[2]/div[1]/div[2]/div[1]/div/div[2]/div[3]/div[1]/div/p[2]",
+        "multiple": false,
+        "timeout": "10000",
+        "waitFor": "1000",
+        "x": 1850,
+        "y": 700,
+        "wires": [
+            [
+                "02354facd2a5d4fa"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "fc32bef9a56e29e9",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "duration",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2250,
+        "y": 700,
+        "wires": [
+            [
+                "2203b62df246e1c7"
+            ]
+        ]
+    },
+    {
+        "id": "5517619bc2879ae8",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find duration",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[1]/div[2]/div/ol/li/div/div/div[4]/div[1]",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1830,
+        "y": 2060,
+        "wires": [
+            [
+                "0f92798923f37171"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "3552eb9913fca3bf",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "duration",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 2060,
+        "wires": [
+            [
+                "f04f75842be39bee"
+            ]
+        ]
+    },
+    {
+        "id": "fcd2b290f469c2f2",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "transformArray",
+        "func": "if (!flow.get('KayakArray')) {\n    flow.set('KayakArray', []);\n}\n\nflow.get('KayakArray').push(msg.payload);\n\nmsg.payload = flow.get('KayakArray');\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2740,
+        "y": 1880,
+        "wires": [
+            [
+                "39b5071f7ec231e3",
+                "e6dfaeb00d9e0bd5"
+            ]
+        ]
+    },
+    {
+        "id": "dd2114398123ab8f",
+        "type": "ui_table",
+        "z": "79e6c44f8e0344c2",
+        "group": "12fc59a6820a2854",
+        "name": "Result",
+        "order": 3,
+        "width": 25,
+        "height": 6,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 3350,
+        "y": 2180,
+        "wires": []
+    },
+    {
+        "id": "f4267d10a753e177",
+        "type": "ui_button",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "group": "7a385476dde38bb3",
+        "order": 1,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "Go to the Website",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "Node-RED",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 1350,
+        "y": 300,
+        "wires": [
+            [
+                "eac606e07147221a"
+            ]
+        ]
+    },
+    {
+        "id": "eac606e07147221a",
+        "type": "ui_template",
+        "z": "79e6c44f8e0344c2",
+        "group": "7a385476dde38bb3",
+        "name": "window redirect",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "format": "\n<script>\n(function(scope) {\n    scope.$watch('msg.payload', function(data) {\n        if (data == \"Node-RED\") {\n          window.location.href = 'https://www.airasia.com/en/gb';\n        }\n    });\n})(scope);\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 1540,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0e0d1f2560ee9d44",
+        "type": "ui_button",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "group": "12fc59a6820a2854",
+        "order": 1,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "Go to the Website",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "Node-RED",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 1450,
+        "y": 1600,
+        "wires": [
+            [
+                "9abaaff71259b9ab"
+            ]
+        ]
+    },
+    {
+        "id": "9abaaff71259b9ab",
+        "type": "ui_template",
+        "z": "79e6c44f8e0344c2",
+        "group": "12fc59a6820a2854",
+        "name": "window redirect",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "format": "\n<script>\n(function(scope) {\n    scope.$watch('msg.payload', function(data) {\n        if (data == \"Node-RED\") {\n          window.location.href = 'https://www.kayak.com.my/';\n        }\n    });\n})(scope);\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 1640,
+        "y": 1600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2db79907f73b183e",
+        "type": "open browser",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "browserType": "chrome",
+        "webURL": "https://www.kayak.com.my/flights/{{msg.payload.origin}}-{{msg.payload.destination}}/{{msg.payload.departDate}}/{{msg.payload.returnDate}}/{{msg.payload.adult}}adults{{msg.payload.child}}?sort=bestflight_a",
+        "width": 1280,
+        "height": 1024,
+        "timeout": 3000,
+        "maximized": true,
+        "headless": false,
+        "args": [],
+        "serverURL": "http://localhost:9515",
+        "x": 1430,
+        "y": 2280,
+        "wires": [
+            [
+                "eaceca3027515ac6"
+            ]
+        ]
+    },
+    {
+        "id": "2259127e00db3a2f",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find seatType",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1830,
+        "y": 2920,
+        "wires": [
+            [
+                "a693d19f0b3f1c5e"
+            ],
+            [
+                "42c7b8200dbb0d2d"
+            ]
+        ]
+    },
+    {
+        "id": "46439aec43679987",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "seatType",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 2920,
+        "wires": [
+            [
+                "7d9ba3dd32638dca"
+            ]
+        ]
+    },
+    {
+        "id": "4ddd358fe5b22cbe",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find company",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[1]/div[3]/div/div[1]",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1830,
+        "y": 2380,
+        "wires": [
+            [
+                "145723b41395bf59"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "af041f22d1872a2c",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find departTime",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[1]/div[2]/div/ol/li[1]/div/div/div[3]/div[1]/span[1]",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1840,
+        "y": 2440,
+        "wires": [
+            [
+                "90b918775e9e115d"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "41835bcb426d7884",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "company",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 2380,
+        "wires": [
+            [
+                "7d9ba3dd32638dca"
+            ]
+        ]
+    },
+    {
+        "id": "349de2c956dcd3f4",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "departTime",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 2440,
+        "wires": [
+            [
+                "7d9ba3dd32638dca"
+            ]
+        ]
+    },
+    {
+        "id": "515c2db9080f346e",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find arriveTime",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[1]/div[2]/div/ol/li[1]/div/div/div[3]/div[1]/span[3]",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1840,
+        "y": 2500,
+        "wires": [
+            [
+                "607d0ea84b6c96f5"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "b110210f4ba15f14",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "arriveTime",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 2500,
+        "wires": [
+            [
+                "7d9ba3dd32638dca"
+            ]
+        ]
+    },
+    {
+        "id": "7d9ba3dd32638dca",
+        "type": "join",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "11",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 2530,
+        "y": 2500,
+        "wires": [
+            [
+                "c3545178ac4199c4",
+                "14bedf8505fdbe78"
+            ]
+        ]
+    },
+    {
+        "id": "520343655c605b14",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find origin",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[1]/div[2]/div/ol/li[1]/div/div/div[3]/div[2]/div/div[1]/span/span[1]",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1820,
+        "y": 2680,
+        "wires": [
+            [
+                "08c276c65452e2f7"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f3ec29449be0e783",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "origin",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 2680,
+        "wires": [
+            [
+                "7d9ba3dd32638dca"
+            ]
+        ]
+    },
+    {
+        "id": "2151b4ac1360503e",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find destination",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[1]/div[2]/div/ol/li[1]/div/div/div[3]/div[2]/div/div[2]/span/span[1]",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1840,
+        "y": 2740,
+        "wires": [
+            [
+                "e6a745664855c466"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "51d1020c81a5a030",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "destination",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 2740,
+        "wires": [
+            [
+                "7d9ba3dd32638dca"
+            ]
+        ]
+    },
+    {
+        "id": "6cfa6a7fd517b273",
+        "type": "close browser",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "waitFor": 500,
+        "x": 1950,
+        "y": 3000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1531e9b3719f9fe6",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find price",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[2]/div/div[2]/div/div[1]/a/div/div/div/div",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1820,
+        "y": 2320,
+        "wires": [
+            [
+                "b8f4935b6f403b48"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "12bacbd652bab862",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "price",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 2320,
+        "wires": [
+            [
+                "7d9ba3dd32638dca"
+            ]
+        ]
+    },
+    {
+        "id": "c3545178ac4199c4",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "Loop",
+        "func": "var y = flow.get('y');\n\nif (y < 20) {\n    if (y == 3) {\n        y = y + 2;\n    } else {\n        y++;\n    }\n    flow.set('y', y);\n    msg.payload = y;\n\n    return msg;\n} else {\n    msg.payload = null;\n    return msg;\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 2460,
+        "wires": [
+            [
+                "1531e9b3719f9fe6",
+                "4ddd358fe5b22cbe",
+                "af041f22d1872a2c",
+                "515c2db9080f346e",
+                "520343655c605b14",
+                "2151b4ac1360503e",
+                "2259127e00db3a2f",
+                "e3484b59ca2a5ac4",
+                "1904f6a5f124b624",
+                "a7acaa974c027dd2",
+                "a235b2662eca9d78",
+                "169b564309ef16ac"
+            ]
+        ]
+    },
+    {
+        "id": "eaceca3027515ac6",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "set y & array",
+        "func": "flow.set('KayakArray', []);\n\nvar y = flow.get('y')\n\nflow.set('y', 0);\n\nmsg.payload = y;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 2360,
+        "wires": [
+            [
+                "c3545178ac4199c4"
+            ]
+        ]
+    },
+    {
+        "id": "42c7b8200dbb0d2d",
+        "type": "switch",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 1810,
+        "y": 2980,
+        "wires": [
+            [
+                "c3545178ac4199c4"
+            ],
+            [
+                "c3545178ac4199c4"
+            ],
+            [
+                "6cfa6a7fd517b273"
+            ]
+        ]
+    },
+    {
+        "id": "e3484b59ca2a5ac4",
+        "type": "switch",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1330,
+        "y": 2660,
+        "wires": [
+            [
+                "f77460202b61912c"
+            ]
+        ]
+    },
+    {
+        "id": "f77460202b61912c",
+        "type": "close browser",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "waitFor": 500,
+        "x": 1470,
+        "y": 2660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1904f6a5f124b624",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find duration",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[1]/div[2]/div/ol/li[1]/div/div/div[5]/div[1]",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1830,
+        "y": 2800,
+        "wires": [
+            [
+                "39eb3d29a364f9df"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7e83ef6df93c46a3",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "duration",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 2800,
+        "wires": [
+            [
+                "7d9ba3dd32638dca"
+            ]
+        ]
+    },
+    {
+        "id": "14bedf8505fdbe78",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "transformArray",
+        "func": "if (!flow.get('KayakArray')) {\n    flow.set('KayakArray', []);\n}\n\nflow.get('KayakArray').push(msg.payload);\n\nmsg.payload = flow.get('KayakArray');\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2740,
+        "y": 2500,
+        "wires": [
+            [
+                "c99791f3b34500c5",
+                "832502d17135d774"
+            ]
+        ]
+    },
+    {
+        "id": "a7acaa974c027dd2",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find ReturnDepartTime",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[1]/div[2]/div/ol/li[2]/div/div/div[3]/div[1]/span[1]",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1860,
+        "y": 2560,
+        "wires": [
+            [
+                "bc9f694d2adc3999"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "18bddabf1d81f9e3",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "ReturnDepartTime",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 2560,
+        "wires": [
+            [
+                "7d9ba3dd32638dca"
+            ]
+        ]
+    },
+    {
+        "id": "a235b2662eca9d78",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find ReturnArriveTime",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[1]/div[2]/div/ol/li[2]/div/div/div[3]/div[1]/span[3]",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1860,
+        "y": 2620,
+        "wires": [
+            [
+                "373b8c3c17a5eb61"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f1c938d7b4463076",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "ReturnArriveTime",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 2620,
+        "wires": [
+            [
+                "7d9ba3dd32638dca"
+            ]
+        ]
+    },
+    {
+        "id": "169b564309ef16ac",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find ReturnDuration",
+        "selector": "xpath",
+        "target": "/html/body/div[1]/div[1]/main/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[5]/div[2]/div/div/div[{{msg.payload}}]/div[2]/div/div/div[1]/div[2]/div/ol/li[2]/div/div/div[5]/div[1]",
+        "multiple": false,
+        "timeout": "7000",
+        "waitFor": "1000",
+        "x": 1850,
+        "y": 2860,
+        "wires": [
+            [
+                "87049bf55e77eb85"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "27b97b32746f5322",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "ReturnDuration",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 2860,
+        "wires": [
+            [
+                "7d9ba3dd32638dca"
+            ]
+        ]
+    },
+    {
+        "id": "832502d17135d774",
+        "type": "delay",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "0.5",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2990,
+        "y": 2520,
+        "wires": [
+            [
+                "dd2114398123ab8f"
+            ]
+        ]
+    },
+    {
+        "id": "c99791f3b34500c5",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "clear out the table",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2980,
+        "y": 2460,
+        "wires": [
+            [
+                "dd2114398123ab8f"
+            ]
+        ]
+    },
+    {
+        "id": "e6dfaeb00d9e0bd5",
+        "type": "delay",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "0.5",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2970,
+        "y": 1900,
+        "wires": [
+            [
+                "dd2114398123ab8f"
+            ]
+        ]
+    },
+    {
+        "id": "39b5071f7ec231e3",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "clear out the table",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2960,
+        "y": 1840,
+        "wires": [
+            [
+                "dd2114398123ab8f"
+            ]
+        ]
+    },
+    {
+        "id": "5687157d9c3ff75f",
+        "type": "open browser",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "browserType": "chrome",
+        "webURL": "https://www.airasia.com/flights/search/?origin={{msg.payload.destination}}&destination={{msg.payload.origin}}&departDate={{msg.payload.returnDate}}&tripType=O&adult={{msg.payload.adult}}&child={{msg.payload.child}}&infant=0&locale=en-gb&currency=MYR&airlineProfile=all&type=paired&cabinClass=economy&upsellWidget=true&upsellPremiumFlatbedWidget=true&isOC=false&isDC=false&uce=false&ancillaryAbTest=false",
+        "width": 1280,
+        "height": 1024,
+        "timeout": 3000,
+        "maximized": true,
+        "headless": false,
+        "args": [],
+        "serverURL": "http://localhost:9515",
+        "x": 1310,
+        "y": 1000,
+        "wires": [
+            [
+                "c28b3d2357a2025f"
+            ]
+        ]
+    },
+    {
+        "id": "fdee23db3c10a452",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find price",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[2]/div[{{msg.payload}}]/div/div/div/div/div/div/div[2]/div[2]/div/div[1]/div[1]/span/p[2]",
+        "multiple": false,
+        "timeout": "10000",
+        "waitFor": "1000",
+        "x": 1820,
+        "y": 960,
+        "wires": [
+            [
+                "b411c118e6754f88"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "b99dc0cc826d30c2",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find seatType",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[2]/div[{{msg.payload}}]/div/div/div/div/div/div/div[2]/div[1]/div[1]/div[1]/p",
+        "multiple": false,
+        "timeout": "10000",
+        "waitFor": "1000",
+        "x": 1830,
+        "y": 1380,
+        "wires": [
+            [
+                "3ac2f421a8d701fa"
+            ],
+            [
+                "1b0d1d459d664115"
+            ]
+        ]
+    },
+    {
+        "id": "6f0f7b3be53ad754",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "price",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 960,
+        "wires": [
+            [
+                "7fc29a770bfe3282"
+            ]
+        ]
+    },
+    {
+        "id": "28b1252d4153b67d",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "seatType",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 1380,
+        "wires": [
+            [
+                "7fc29a770bfe3282"
+            ]
+        ]
+    },
+    {
+        "id": "6e1fcf63fd3e68a4",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find company",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[2]/div[{{msg.payload}}]/div/div/div/div/div/div/div[2]/div[1]/div[2]/div[1]/div/div[1]/div/p",
+        "multiple": false,
+        "timeout": "10000",
+        "waitFor": "1000",
+        "x": 1830,
+        "y": 1020,
+        "wires": [
+            [
+                "8615dbae96f40875"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "40d8e391f28a3e2a",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find departTime",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[2]/div[{{msg.payload}}]/div/div/div/div/div/div/div[2]/div[1]/div[2]/div[1]/div/div[2]/div[2]/div[1]/div/p[1]",
+        "multiple": false,
+        "timeout": "10000",
+        "waitFor": "1000",
+        "x": 1840,
+        "y": 1080,
+        "wires": [
+            [
+                "b2ccd46246da2f5e"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "84851661af2acfa7",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "company",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 1020,
+        "wires": [
+            [
+                "7fc29a770bfe3282"
+            ]
+        ]
+    },
+    {
+        "id": "742216494854eff6",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "departTime",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 1080,
+        "wires": [
+            [
+                "7fc29a770bfe3282"
+            ]
+        ]
+    },
+    {
+        "id": "88a44167566e1396",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find arriveTime",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[2]/div[{{msg.payload}}]/div/div/div/div/div/div/div[2]/div[1]/div[2]/div[1]/div/div[2]/div[2]/div[3]/div/p[1]",
+        "multiple": false,
+        "timeout": "10000",
+        "waitFor": "1000",
+        "x": 1840,
+        "y": 1140,
+        "wires": [
+            [
+                "55c60e05e5fdc903"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "d2eaff2078d6dcf0",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "arriveTime",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 1140,
+        "wires": [
+            [
+                "7fc29a770bfe3282"
+            ]
+        ]
+    },
+    {
+        "id": "7fc29a770bfe3282",
+        "type": "join",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "8",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 2430,
+        "y": 1140,
+        "wires": [
+            [
+                "d00ccfaffb172c3e",
+                "a16ea106edfa5777"
+            ]
+        ]
+    },
+    {
+        "id": "d61a74317465ba65",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find origin",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[2]/div[{{msg.payload}}]/div/div/div/div/div/div/div[2]/div[1]/div[2]/div[1]/div/div[2]/div[2]/div[1]/div/p[2]",
+        "multiple": false,
+        "timeout": "10000",
+        "waitFor": "1000",
+        "x": 1820,
+        "y": 1200,
+        "wires": [
+            [
+                "e12984efbb71e7b2"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "58ba4c2f901ff33f",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "origin",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 1200,
+        "wires": [
+            [
+                "7fc29a770bfe3282"
+            ]
+        ]
+    },
+    {
+        "id": "d94fd657fb82557a",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find destination",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[2]/div[{{msg.payload}}]/div/div/div/div/div/div/div[2]/div[1]/div[2]/div[1]/div/div[2]/div[2]/div[3]/div/p[2]",
+        "multiple": false,
+        "timeout": "10000",
+        "waitFor": "1000",
+        "x": 1840,
+        "y": 1260,
+        "wires": [
+            [
+                "d0674056c866cbe5"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "70ce8ebdaf7f81f5",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "destination",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 1260,
+        "wires": [
+            [
+                "7fc29a770bfe3282"
+            ]
+        ]
+    },
+    {
+        "id": "d00ccfaffb172c3e",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "Loop",
+        "func": "var x = flow.get('x');\n\nif (x < 20) {\n    x++;\n    flow.set('x', x);\n\n    msg.payload = x;\n    return msg;\n\n} else {\n    msg.payload = null;\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 1240,
+        "wires": [
+            [
+                "fdee23db3c10a452",
+                "6e1fcf63fd3e68a4",
+                "40d8e391f28a3e2a",
+                "88a44167566e1396",
+                "d61a74317465ba65",
+                "d94fd657fb82557a",
+                "b99dc0cc826d30c2",
+                "53c6a3318cfb1299",
+                "9ffd7e633c5b7181"
+            ]
+        ]
+    },
+    {
+        "id": "1b4013ce02e9d45c",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "set x & array",
+        "func": "flow.set('ReturnAirasiaArray', []);\n\nflow.set('x', 1);\n\nvar x = flow.get('x')\n\nmsg.payload = x;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 1180,
+        "wires": [
+            [
+                "d00ccfaffb172c3e"
+            ]
+        ]
+    },
+    {
+        "id": "1b0d1d459d664115",
+        "type": "close browser",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "waitFor": 500,
+        "x": 1810,
+        "y": 1440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c28b3d2357a2025f",
+        "type": "click on",
+        "z": "79e6c44f8e0344c2",
+        "name": "Click on airasia only",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[1]/div[2]/div/div/div/span",
+        "mode": "first",
+        "timeout": "10000",
+        "waitFor": "5000",
+        "clickOn": false,
+        "x": 1400,
+        "y": 1060,
+        "wires": [
+            [
+                "09a861ef2ea480df"
+            ],
+            [
+                "e5bbef1382be3eff"
+            ]
+        ]
+    },
+    {
+        "id": "09a861ef2ea480df",
+        "type": "click on",
+        "z": "79e6c44f8e0344c2",
+        "name": "Click on the 6th element",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[2]/div[6]",
+        "mode": "first",
+        "timeout": "50000",
+        "waitFor": "5000",
+        "clickOn": false,
+        "x": 1450,
+        "y": 1120,
+        "wires": [
+            [
+                "1b4013ce02e9d45c"
+            ],
+            [
+                "e5bbef1382be3eff"
+            ]
+        ]
+    },
+    {
+        "id": "53c6a3318cfb1299",
+        "type": "switch",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1450,
+        "y": 1300,
+        "wires": [
+            [
+                "e5bbef1382be3eff"
+            ]
+        ]
+    },
+    {
+        "id": "e5bbef1382be3eff",
+        "type": "close browser",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "waitFor": 500,
+        "x": 1450,
+        "y": 1340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "26db41d52d42deaa",
+        "type": "ui_table",
+        "z": "79e6c44f8e0344c2",
+        "group": "b74409a61feec35b",
+        "name": "Result",
+        "order": 2,
+        "width": 12,
+        "height": 6,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 3130,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "a16ea106edfa5777",
+        "type": "function",
+        "z": "79e6c44f8e0344c2",
+        "name": "transformArray",
+        "func": "if (!flow.get('ReturnAirasiaArray')) {\n    flow.set('ReturnAirasiaArray', []);\n}\n\nflow.get('ReturnAirasiaArray').push(msg.payload);\n\nmsg.payload = flow.get('ReturnAirasiaArray');\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2620,
+        "y": 1140,
+        "wires": [
+            [
+                "8647f10a437fef4f",
+                "b87d06cce6030be9"
+            ]
+        ]
+    },
+    {
+        "id": "9ffd7e633c5b7181",
+        "type": "find element",
+        "z": "79e6c44f8e0344c2",
+        "name": "find duration",
+        "selector": "xpath",
+        "target": "/html/body/div/div/div[2]/main/div[2]/div[{{msg.payload}}]/div/div/div/div/div/div/div[2]/div[1]/div[2]/div[1]/div/div[2]/div[3]/div[1]/div/p[2]",
+        "multiple": false,
+        "timeout": "10000",
+        "waitFor": "1000",
+        "x": 1830,
+        "y": 1320,
+        "wires": [
+            [
+                "5208814898be0408"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "530c93279b846e8b",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "duration",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 1320,
+        "wires": [
+            [
+                "7fc29a770bfe3282"
+            ]
+        ]
+    },
+    {
+        "id": "946267a89b53a4bd",
+        "type": "delay",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "0.5",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2890,
+        "y": 540,
+        "wires": [
+            [
+                "2448cde2c0c738ed"
+            ]
+        ]
+    },
+    {
+        "id": "196e4ea34f7f806e",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "clear out the table",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2900,
+        "y": 480,
+        "wires": [
+            [
+                "2448cde2c0c738ed"
+            ]
+        ]
+    },
+    {
+        "id": "b87d06cce6030be9",
+        "type": "delay",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "0.5",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2870,
+        "y": 1160,
+        "wires": [
+            [
+                "26db41d52d42deaa"
+            ]
+        ]
+    },
+    {
+        "id": "8647f10a437fef4f",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "clear out the table",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2880,
+        "y": 1100,
+        "wires": [
+            [
+                "26db41d52d42deaa"
+            ]
+        ]
+    },
+    {
+        "id": "6599357271d8f825",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2080,
+        "y": 400,
+        "wires": [
+            [
+                "d2a790f02b087678"
+            ],
+            [
+                "55b32ebc936a97f6"
+            ]
+        ]
+    },
+    {
+        "id": "b69add371dfd9489",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2080,
+        "y": 460,
+        "wires": [
+            [
+                "57903951a3279e8e"
+            ],
+            [
+                "55b32ebc936a97f6"
+            ]
+        ]
+    },
+    {
+        "id": "c010309915e4bf01",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2080,
+        "y": 520,
+        "wires": [
+            [
+                "2a81a1e2d4f08f70"
+            ],
+            [
+                "55b32ebc936a97f6"
+            ]
+        ]
+    },
+    {
+        "id": "3006b1c2dd653cef",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2080,
+        "y": 580,
+        "wires": [
+            [
+                "fbf59b01355a7ba8"
+            ],
+            [
+                "55b32ebc936a97f6"
+            ]
+        ]
+    },
+    {
+        "id": "9e18ec93e7b57914",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2080,
+        "y": 640,
+        "wires": [
+            [
+                "c89981c647df8fa1"
+            ],
+            [
+                "55b32ebc936a97f6"
+            ]
+        ]
+    },
+    {
+        "id": "02354facd2a5d4fa",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2080,
+        "y": 700,
+        "wires": [
+            [
+                "fc32bef9a56e29e9"
+            ],
+            [
+                "55b32ebc936a97f6"
+            ]
+        ]
+    },
+    {
+        "id": "450115952ff48519",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2080,
+        "y": 760,
+        "wires": [
+            [
+                "2a540c5ac9465f05"
+            ],
+            [
+                "55b32ebc936a97f6"
+            ]
+        ]
+    },
+    {
+        "id": "b411c118e6754f88",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2040,
+        "y": 960,
+        "wires": [
+            [
+                "6f0f7b3be53ad754"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "8615dbae96f40875",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2040,
+        "y": 1020,
+        "wires": [
+            [
+                "84851661af2acfa7"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "b2ccd46246da2f5e",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2040,
+        "y": 1080,
+        "wires": [
+            [
+                "742216494854eff6"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "55c60e05e5fdc903",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2040,
+        "y": 1140,
+        "wires": [
+            [
+                "d2eaff2078d6dcf0"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e12984efbb71e7b2",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2040,
+        "y": 1200,
+        "wires": [
+            [
+                "58ba4c2f901ff33f"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "d0674056c866cbe5",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2040,
+        "y": 1260,
+        "wires": [
+            [
+                "70ce8ebdaf7f81f5"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "5208814898be0408",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2040,
+        "y": 1320,
+        "wires": [
+            [
+                "530c93279b846e8b"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "3ac2f421a8d701fa",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2040,
+        "y": 1380,
+        "wires": [
+            [
+                "28b1252d4153b67d"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "6d0817a2e29ab108",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2040,
+        "y": 1700,
+        "wires": [
+            [
+                "68e544f449a9aeb3"
+            ],
+            [
+                "82ac37af54d8917c"
+            ]
+        ]
+    },
+    {
+        "id": "5f09612238a5b472",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2040,
+        "y": 1760,
+        "wires": [
+            [
+                "3390c336feb82e87"
+            ],
+            [
+                "82ac37af54d8917c"
+            ]
+        ]
+    },
+    {
+        "id": "ce1c8614f128bc91",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2040,
+        "y": 1820,
+        "wires": [
+            [
+                "962ab0539732dbe8"
+            ],
+            [
+                "82ac37af54d8917c"
+            ]
+        ]
+    },
+    {
+        "id": "f3d2f481be619fb6",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2040,
+        "y": 1880,
+        "wires": [
+            [
+                "2a836d738cf04818"
+            ],
+            [
+                "82ac37af54d8917c"
+            ]
+        ]
+    },
+    {
+        "id": "96165c1498dedc5c",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2040,
+        "y": 1940,
+        "wires": [
+            [
+                "6c0d8ab8f8f32bd6"
+            ],
+            [
+                "82ac37af54d8917c"
+            ]
+        ]
+    },
+    {
+        "id": "fea8a1ab8bd47e90",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2040,
+        "y": 2000,
+        "wires": [
+            [
+                "3c7feb61d9dc5eda"
+            ],
+            [
+                "82ac37af54d8917c"
+            ]
+        ]
+    },
+    {
+        "id": "0f92798923f37171",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2040,
+        "y": 2060,
+        "wires": [
+            [
+                "3552eb9913fca3bf"
+            ],
+            [
+                "82ac37af54d8917c"
+            ]
+        ]
+    },
+    {
+        "id": "ae7d211a7dcfeb9f",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2040,
+        "y": 2120,
+        "wires": [
+            [
+                "147750b476ad5dd0"
+            ],
+            [
+                "82ac37af54d8917c"
+            ]
+        ]
+    },
+    {
+        "id": "b8f4935b6f403b48",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2060,
+        "y": 2320,
+        "wires": [
+            [
+                "12bacbd652bab862"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "145723b41395bf59",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2060,
+        "y": 2380,
+        "wires": [
+            [
+                "41835bcb426d7884"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "90b918775e9e115d",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2060,
+        "y": 2440,
+        "wires": [
+            [
+                "349de2c956dcd3f4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "607d0ea84b6c96f5",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2060,
+        "y": 2500,
+        "wires": [
+            [
+                "b110210f4ba15f14"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "bc9f694d2adc3999",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2060,
+        "y": 2560,
+        "wires": [
+            [
+                "18bddabf1d81f9e3"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "373b8c3c17a5eb61",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2060,
+        "y": 2620,
+        "wires": [
+            [
+                "f1c938d7b4463076"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "08c276c65452e2f7",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2060,
+        "y": 2680,
+        "wires": [
+            [
+                "f3ec29449be0e783"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e6a745664855c466",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2060,
+        "y": 2740,
+        "wires": [
+            [
+                "51d1020c81a5a030"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "39eb3d29a364f9df",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2060,
+        "y": 2800,
+        "wires": [
+            [
+                "7e83ef6df93c46a3"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "87049bf55e77eb85",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2060,
+        "y": 2860,
+        "wires": [
+            [
+                "27b97b32746f5322"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a693d19f0b3f1c5e",
+        "type": "get text",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "expected": "",
+        "selector": "",
+        "target": "",
+        "mode": "first",
+        "timeout": 1000,
+        "waitFor": 500,
+        "savetofile": false,
+        "x": 2060,
+        "y": 2920,
+        "wires": [
+            [
+                "46439aec43679987"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "4ecee1660ab04557",
+        "type": "ui_toast",
+        "z": "79e6c44f8e0344c2",
+        "position": "top right",
+        "displayTime": "10",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 2470,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "55b32ebc936a97f6",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Warning",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Oops, something went wrong. Please try again later.",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2260,
+        "y": 820,
+        "wires": [
+            [
+                "4ecee1660ab04557",
+                "d83b77e8f7357f67"
+            ]
+        ]
+    },
+    {
+        "id": "d83b77e8f7357f67",
+        "type": "close browser",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "waitFor": 500,
+        "x": 2430,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2aeaaf6161b45019",
+        "type": "ui_toast",
+        "z": "79e6c44f8e0344c2",
+        "position": "top right",
+        "displayTime": "10",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 2450,
+        "y": 2180,
+        "wires": []
+    },
+    {
+        "id": "82ac37af54d8917c",
+        "type": "change",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Warning",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Oops, something went wrong. Please try again later.",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2240,
+        "y": 2180,
+        "wires": [
+            [
+                "2aeaaf6161b45019",
+                "115dc35ce0042c71"
+            ]
+        ]
+    },
+    {
+        "id": "115dc35ce0042c71",
+        "type": "close browser",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "waitFor": 500,
+        "x": 2410,
+        "y": 2220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0a7d6e0ad3264a8d",
+        "type": "gate",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "controlTopic": "control",
+        "defaultState": "open",
+        "openCmd": "open",
+        "closeCmd": "close",
+        "toggleCmd": "toggle",
+        "defaultCmd": "default",
+        "statusCmd": "status",
+        "persist": false,
+        "storeName": "memory",
+        "x": 1810,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a2c1bfc0.3be47",
+        "type": "status",
+        "z": "79e6c44f8e0344c2",
+        "name": "status 1",
+        "scope": [
+            "d81194ef.313d6"
+        ],
+        "x": 1810,
+        "y": 3620,
+        "wires": [
+            [
+                "4e7accb1.6a1244",
+                "c7ba6981.1c5ca8"
+            ]
+        ]
+    },
+    {
+        "id": "ffac76df.157138",
+        "type": "inject",
+        "z": "79e6c44f8e0344c2",
+        "name": "timestamp",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1380,
+        "y": 3540,
+        "wires": [
+            [
+                "717d6cd.b967594"
+            ]
+        ]
+    },
+    {
+        "id": "10481de0.41060a",
+        "type": "ui_switch",
+        "z": "79e6c44f8e0344c2",
+        "name": "open/close",
+        "label": "open/close",
+        "group": "5cfe21d2.307938",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "false",
+        "topic": "control",
+        "style": "",
+        "onvalue": "open",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "close",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 1530,
+        "y": 3780,
+        "wires": [
+            [
+                "baa6f13d.6c818"
+            ]
+        ]
+    },
+    {
+        "id": "dbc56c5c.9a499",
+        "type": "ui_button",
+        "z": "79e6c44f8e0344c2",
+        "name": "toggle",
+        "group": "fdb6c31c.4f2818",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "label": "toggle",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "toggle",
+        "payloadType": "str",
+        "topic": "control",
+        "x": 1550,
+        "y": 3580,
+        "wires": [
+            [
+                "342a8702.77af28"
+            ]
+        ]
+    },
+    {
+        "id": "fb3862a9.febaa8",
+        "type": "ui_button",
+        "z": "79e6c44f8e0344c2",
+        "name": "reset",
+        "group": "fdb6c31c.4f2818",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "label": "reset",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "default",
+        "payloadType": "str",
+        "topic": "control",
+        "x": 1550,
+        "y": 3620,
+        "wires": [
+            [
+                "342a8702.77af28"
+            ]
+        ]
+    },
+    {
+        "id": "717d6cd.b967594",
+        "type": "ui_button",
+        "z": "79e6c44f8e0344c2",
+        "name": "message 1",
+        "group": "fdb6c31c.4f2818",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "label": "Send",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "anything",
+        "topicType": "str",
+        "x": 1530,
+        "y": 3540,
+        "wires": [
+            [
+                "342a8702.77af28"
+            ]
+        ]
+    },
+    {
+        "id": "cf3d94f3.62e01",
+        "type": "ui_button",
+        "z": "79e6c44f8e0344c2",
+        "name": "message 2",
+        "group": "5cfe21d2.307938",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Send",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "",
+        "x": 1530,
+        "y": 3740,
+        "wires": [
+            [
+                "baa6f13d.6c818"
+            ]
+        ]
+    },
+    {
+        "id": "f2823cc0.7548c",
+        "type": "ui_text",
+        "z": "79e6c44f8e0344c2",
+        "group": "fdb6c31c.4f2818",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "display 1",
+        "label": "Message",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1820,
+        "y": 3580,
+        "wires": []
+    },
+    {
+        "id": "4e7accb1.6a1244",
+        "type": "ui_text",
+        "z": "79e6c44f8e0344c2",
+        "group": "fdb6c31c.4f2818",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "status 1",
+        "label": "Status",
+        "format": "{{msg.status.text}}",
+        "layout": "row-spread",
+        "x": 1960,
+        "y": 3620,
+        "wires": []
+    },
+    {
+        "id": "9b2a6a4.c99b098",
+        "type": "ui_text",
+        "z": "79e6c44f8e0344c2",
+        "group": "5cfe21d2.307938",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "display 2",
+        "label": "Message",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1820,
+        "y": 3760,
+        "wires": []
+    },
+    {
+        "id": "9fdf32be.f66568",
+        "type": "ui_text",
+        "z": "79e6c44f8e0344c2",
+        "group": "5cfe21d2.307938",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "status 2",
+        "label": "Status",
+        "format": "{{msg.status.text}}",
+        "layout": "row-spread",
+        "x": 1940,
+        "y": 3800,
+        "wires": []
+    },
+    {
+        "id": "d3b465d7.ab11d",
+        "type": "inject",
+        "z": "79e6c44f8e0344c2",
+        "name": "timestamp",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1380,
+        "y": 3740,
+        "wires": [
+            [
+                "cf3d94f3.62e01"
+            ]
+        ]
+    },
+    {
+        "id": "7378029e.0e7004",
+        "type": "status",
+        "z": "79e6c44f8e0344c2",
+        "name": "status 2",
+        "scope": [
+            "5f1d51af.3f9ef8"
+        ],
+        "x": 1810,
+        "y": 3800,
+        "wires": [
+            [
+                "9fdf32be.f66568"
+            ]
+        ]
+    },
+    {
+        "id": "66b1fc61.8e356c",
+        "type": "inject",
+        "z": "79e6c44f8e0344c2",
+        "name": "toggle",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1390,
+        "y": 3580,
+        "wires": [
+            [
+                "dbc56c5c.9a499"
+            ]
+        ]
+    },
+    {
+        "id": "c7bd73e3.460f",
+        "type": "inject",
+        "z": "79e6c44f8e0344c2",
+        "name": "reset",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1390,
+        "y": 3620,
+        "wires": [
+            [
+                "fb3862a9.febaa8"
+            ]
+        ]
+    },
+    {
+        "id": "c7ba6981.1c5ca8",
+        "type": "debug",
+        "z": "79e6c44f8e0344c2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "status",
+        "x": 1970,
+        "y": 3660,
+        "wires": []
+    },
+    {
+        "id": "342a8702.77af28",
+        "type": "gate",
+        "z": "79e6c44f8e0344c2",
+        "name": "gate 1",
+        "controlTopic": "control",
+        "defaultState": "open",
+        "openCmd": "open",
+        "closeCmd": "close",
+        "toggleCmd": "toggle",
+        "defaultCmd": "default",
+        "statusCmd": "status",
+        "persist": false,
+        "storeName": "memoryOnly",
+        "x": 1690,
+        "y": 3580,
+        "wires": [
+            [
+                "f2823cc0.7548c"
+            ]
+        ]
+    },
+    {
+        "id": "baa6f13d.6c818",
+        "type": "gate",
+        "z": "79e6c44f8e0344c2",
+        "name": "gate 2",
+        "controlTopic": "control",
+        "defaultState": "open",
+        "openCmd": "open",
+        "closeCmd": "close",
+        "toggleCmd": "toggle",
+        "defaultCmd": "default",
+        "statusCmd": "status",
+        "persist": false,
+        "storeName": "memoryOnly",
+        "x": 1690,
+        "y": 3760,
+        "wires": [
+            [
+                "9b2a6a4.c99b098"
+            ]
+        ]
+    },
+    {
+        "id": "ba6247221a46dbd0",
+        "type": "ui_spacer",
+        "z": "79e6c44f8e0344c2",
+        "name": "spacer",
+        "group": "7a385476dde38bb3",
+        "order": 2,
+        "width": 8,
+        "height": 1
+    },
+    {
+        "id": "7276685277c8edcd",
+        "type": "ui_spacer",
+        "z": "79e6c44f8e0344c2",
+        "name": "spacer",
+        "group": "b74409a61feec35b",
+        "order": 1,
+        "width": 12,
+        "height": 1
+    },
+    {
+        "id": "ae1840be65e62337",
+        "type": "ui_spacer",
+        "z": "79e6c44f8e0344c2",
+        "name": "spacer",
+        "group": "12fc59a6820a2854",
+        "order": 2,
+        "width": 21,
+        "height": 1
+    },
+    {
+        "id": "1e31d2774c0ec0f5",
+        "type": "ui_group",
+        "name": "Searching Box",
+        "tab": "1ef2a31d21b8e254",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7a385476dde38bb3",
+        "type": "ui_group",
+        "name": "Airasia.com",
+        "tab": "1ef2a31d21b8e254",
+        "order": 2,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "12fc59a6820a2854",
+        "type": "ui_group",
+        "name": "Kayak.com",
+        "tab": "1ef2a31d21b8e254",
+        "order": 4,
+        "disp": true,
+        "width": 25,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "b74409a61feec35b",
+        "type": "ui_group",
+        "name": "Airasia(Return)",
+        "tab": "1ef2a31d21b8e254",
+        "order": 3,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "5cfe21d2.307938",
+        "type": "ui_group",
+        "name": "Gate #2",
+        "tab": "3616a722.b89bc8",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "fdb6c31c.4f2818",
+        "type": "ui_group",
+        "name": "Gate #1",
+        "tab": "3616a722.b89bc8",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "1ef2a31d21b8e254",
+        "type": "ui_tab",
+        "name": "Main Menu",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "3616a722.b89bc8",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard"
+    }
+]
