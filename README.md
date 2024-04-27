@@ -35,6 +35,7 @@ Installation of Node-RED UI table
 <br>
 <br>
 <br>
+
 **Settings and Configuration:**  
 1. Open the command prompt and start Node-Red by the command “node-red”.  
 2. Open a new command prompt and start Chromedriver by the command “chromedriver”.  
@@ -44,6 +45,7 @@ Installation of Node-RED UI table
 6. Then, place it into the flow and deploy it.  
 7. Open a new browser tab and enter http://localhost:1880/ui. to access the user interface. 
 8. Now, you are ready to use it.
+
 <br>
 <br>
 <br>
