@@ -7,35 +7,35 @@ Flight Price Monitoring Application can be used to collect the flight informatio
   
   
   
-**Objectives:**
+**Objectives:**  
 Compare to other Flight Comparison Website, this project aims to collect the flight information directly from the official airlines website and real-time. Therefore users can get the most accurate information.
   
   
   
-**Software Setup:**
+**Software Setup:**  
 Before starting to develop the flight price monitoring system, there are few installation need to be done in the laptop: 
 
-Installation of Node.js 
+Installation of Node.js   
 - the official website of Node.js: https://nodejs.org/en - download and install the appropriate version for your laptop.
 
-Installation of Node-RED
+Installation of Node-RED   
 - Open command prompt and type “npm install -g --unsafe-perm node-red”
 
-Installation of simple web driver
+Installation of simple web driver  
 - Open command prompt and type “npm install node-red-contrib-simple-webdriver”
  
-Installation of chrome driver
+Installation of chrome driver   
 - Open command prompt and type “npm install -g chromedriver”
  
-Installation of Node-RED dashboard
+Installation of Node-RED dashboard  
 - Open command prompt and type “npm install node-red-dashboard”
 
-Installation of Node-RED UI table
+Installation of Node-RED UI table  
 - Open command prompt and type “npm install node-red-node-ui-table” 
   
   
   
-**Settings and Configuration:**
+**Settings and Configuration:**  
 1. Open the command prompt and start Node-Red by the command “node-red”.  
 2. Open a new command prompt and start Chromedriver by the command “chromedriver”.  
 3. Open a web browser and go to http://localhost:1880 to access Node-RED.  
@@ -47,18 +47,18 @@ Installation of Node-RED UI table
   
   
   
-**Flow Preview**
+**Flow Preview:**  
 ![Flow_Preview](./assets/Flows_preview.jpg)
 
-**User Interface:**
+**User Interface:**  
 ![User_interface](./assets/UI_preview.jpg)
 
 
-**Example Searching Result and Sorting**
+**Example Searching Result and Sorting:**  
 ![Result_Preview](./assets/Result_preview.jpg)
   
   
-**Acknowledgments**
+**Acknowledgments**  
 Thanks to my FYP supervisor for guiding me and providing invaluable advice throughout this project.
 
 
