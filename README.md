@@ -77,8 +77,6 @@ Installation of Node-RED UI table
 
 **Acknowledgments:**  
 
-<br>
-
 Thanks to my FYP supervisor for guiding me and providing invaluable advice throughout this project.
 
 
