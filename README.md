@@ -48,14 +48,14 @@ Installation of Node-RED UI table
   
   
 **Flow Preview**
-[Flow_Preview](./assets/Flows_preview.jpg)
+![Flow_Preview](./assets/Flows_preview.jpg)
 
 **User Interface:**
-[User_interface](./assets/UI_preview.jpg)
+![User_interface](./assets/UI_preview.jpg)
 
 
 **Example Searching Result and Sorting**
-[Result_Preview](./assets/Result_preview.jpg)
+![Result_Preview](./assets/Result_preview.jpg)
   
   
 **Acknowledgments**
