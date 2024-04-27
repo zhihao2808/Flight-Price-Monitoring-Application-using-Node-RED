@@ -49,20 +49,36 @@ Installation of Node-RED UI table
 <br>
 <br>
 <br>
+
 **Flow Preview:**
+
 <br>
+
 ![Flow_Preview](./assets/Flows_preview.jpg)
+
 <br>
+
 **User Interface:**
+
 <br>
+
 ![User_interface](./assets/UI_preview.jpg)
+
 <br>
+
 **Example Searching Result and Sorting:**
+
 <br>
+
 ![Result_Preview](./assets/Result_preview.jpg)
+
 <br>
 <br>
+
 **Acknowledgments:**  
+
+<br>
+
 Thanks to my FYP supervisor for guiding me and providing invaluable advice throughout this project.
 
 
